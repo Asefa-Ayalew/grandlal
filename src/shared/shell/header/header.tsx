@@ -15,13 +15,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import DarkModeToggle from "../../../utilities/dark-mode-toggle";
 import { useLocale } from "../../../utilities/locale-provider";
+import Image from "next/image";
 
 export function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const theme = useMantineTheme();
   const pathname = usePathname();
-  const {t} = useLocale();
+  const { t } = useLocale();
   const { locale, setLocale } = useLocale(); // Use locale context
 
   // Ensure text rendering matches server and client
@@ -32,8 +33,9 @@ export function Header() {
   }, []);
 
   const isActive = (path: string) =>
-    pathname === path ? "text-blue-600 font-semibold" : "text-gray-900 dark:text-white";
-
+    pathname === path
+      ? "text-blue-600 font-semibold"
+      : "text-gray-900 dark:text-white";
 
   return (
     <Box pb={12}>
@@ -41,20 +43,32 @@ export function Header() {
         <Group justify="space-between" h="100%" className="px-6 md:px-36 py-4">
           {/* Logo */}
           <Box className="flex items-center space-x-2 select-none">
-            <IconHexagonLetterS
-              size={24}
-              className="text-blue-500 transition-transform duration-300 hover:rotate-12"
-            />
+            <div className="flex items-center justify-center">
+              <Image
+                src="/grandlal.png"
+                alt="Grand Lalibela Enterprise Logo"
+                width={80}
+                height={80}
+                className="rounded-lg shadow-md"
+              />
+            </div>
             {isMounted && (
               <h1 className="text-2xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-cyan-400 hover:to-blue-600 transition-all duration-500">
-                {"Supersoft"}
+                {"Grand Lalibela Enterprise"}
               </h1>
             )}
           </Box>
 
           {/* Desktop Navigation */}
-          <Group h="100%" gap={0} className="hidden md:flex font-semibold text-lg">
-            <Link href="/" className={`px-4 py-2 hover:text-blue-500 ${isActive("/")}`}>
+          <Group
+            h="100%"
+            gap={0}
+            className="hidden md:flex font-semibold text-lg"
+          >
+            <Link
+              href="/"
+              className={`px-4 py-2 hover:text-blue-500 ${isActive("/")}`}
+            >
               {t("Homes")}
             </Link>
             {["About Us", "Services", "Portfolio", "Contact Us"].map((item) => (
@@ -89,7 +103,11 @@ export function Header() {
           </Group>
 
           {/* Mobile Menu Button */}
-          <Burger opened={drawerOpened} onClick={toggleDrawer} className="md:hidden" />
+          <Burger
+            opened={drawerOpened}
+            onClick={toggleDrawer}
+            className="md:hidden"
+          />
         </Group>
       </header>
 
@@ -102,7 +120,11 @@ export function Header() {
         className="md:hidden"
       >
         <nav className="flex flex-col space-y-4">
-          <Link href="/" className={`text-lg py-2 ${isActive("/")}`} onClick={closeDrawer}>
+          <Link
+            href="/"
+            className={`text-lg py-2 ${isActive("/")}`}
+            onClick={closeDrawer}
+          >
             Home
           </Link>
           {["About Us", "Services", "Portfolio", "Contact Us"].map((item) => (

@@ -1,77 +1,95 @@
-import type { MantineTheme, MantineThemeOverride } from "@mantine/core";
-import { generateColors } from "@mantine/colors-generator";
+import type { MantineThemeOverride } from '@mantine/core';
 
-export const theme: MantineThemeOverride = {
-  defaultRadius: "sm",
-  primaryColor: "primary",
-  primaryShade: 6,
-
+export const theme: Partial<MantineThemeOverride> = {
+  defaultRadius: 'sm',
+  primaryColor: 'primary',
+  primaryShade: 7,
   breakpoints: {
-    xs: "36rem",
-    sm: "48rem",
-    md: "62rem",
-    lg: "75rem",
-    xl: "87.5rem",
+    xs: '412px',
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1280px',
   },
-
   colors: {
-    primary: generateColors("#008374"), // Updated primary color
-    secondary: generateColors("#006A5C"), // Darker green for contrast
-    tertiary: generateColors("#00A58A"), // Lighter teal variant
+    primary: [
+      '#f6faf3',
+      '#e9f5e3',
+      '#d3eac8',
+      '#afd89d',
+      '#82bd69',
+      '#1D8E3F',
+      '#4c8435',
+      '#1D8E3F',
+      '#345427',
+      '#2b4522',
+    ],
   },
-
   components: {
+    Container: {
+      defaultProps: {
+        sizes: {
+          xs: 412,
+          sm: 640,
+          md: 768,
+          lg: 1024,
+          xl: 1280,
+        },
+      },
+    },
     Button: {
       defaultProps: {
-        size: "xs",
+        size: 'xs',
       },
-      styles: (theme: MantineTheme) => ({
-        root: {
-          backgroundColor: theme.colors.primary[6],
-          color: theme.white,
-          borderRadius: theme.radius.md,
-          padding: `${theme.spacing.sm} ${theme.spacing.lg}`,
-          "&:hover": {
-            backgroundColor: theme.colors.primary[5],
-          },
+      styles: {
+        section: {
+          marginRight: 4,
+          marginLeft: 1,
         },
-      }),
+      },
+    },
+
+    Input: {
+      defaultProps: {
+        size: 'sm',
+      },
+    },
+    TextInput: {
+      defaultProps: {
+        size: 'sm',
+      },
+    },
+    NumberInput: {
+      defaultProps: {
+        size: 'sm',
+      },
+    },
+    Select: {
+      defaultProps: {
+        size: 'sm',
+      },
+    },
+    PasswordInput: {
+      defaultProps: {
+        size: 'sm',
+      },
+    },
+    Breadcrumbs: {
+      styles: {
+        breadcrumb: {
+          fontSize: '14px',
+        },
+      },
     },
     AppShell: {
       styles: {
         main: {
-          backgroundColor: "#F0FCF9", // Light greenish background
+          backgroundColor: '#F3F4F6',
         },
         header: {
           height: 40,
-          backgroundColor: "#007566", // Slightly darker than primary
         },
       },
-    },
-    Text: {
-      styles: (theme: MantineTheme) => ({
-        root: {
-          color: theme.colors.primary[7], // Darker green for better readability
-        },
-      }),
-    },
-    Card: {
-      styles: (theme: MantineTheme) => ({
-        root: {
-          backgroundColor: "#E6F8F4", // Soft greenish card background
-          borderColor: theme.colors.primary[4],
-        },
-      }),
-    },
-    Input: {
-      styles: (theme: MantineTheme) => ({
-        input: {
-          borderColor: theme.colors.primary[5],
-          "&:focus": {
-            borderColor: theme.colors.primary[6],
-          },
-        },
-      }),
     },
   },
 };
