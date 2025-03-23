@@ -23,11 +23,13 @@
     "@mantine/nprogress": "^7.17.2",
     "@mantine/spotlight": "^7.17.2",
     "@mantine/tiptap": "^7.17.2",
+    "@reduxjs/toolkit": "^2.6.1",
     "@tabler/icons-react": "^3.31.0",
     "@tiptap/extension-link": "^2.11.5",
     "@tiptap/pm": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
+    "axios": "^1.8.4",
     "dayjs": "^1.11.13",
     "embla-carousel-react": "^8.5.2",
     "framer-motion": "^12.5.0",
@@ -35,7 +37,11 @@
     "next-intl": "^4.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "recharts": "^2.15.1"
+    "react-redux": "^9.2.0",
+    "recharts": "^2.15.1",
+    "swiper": "^11.2.6",
+    "tabler-icons-react": "^1.56.0",
+    "typed.js": "^2.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -25,13 +25,6 @@ export function Header() {
   const { t } = useLocale();
   const { locale, setLocale } = useLocale(); // Use locale context
 
-  // Ensure text rendering matches server and client
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   const isActive = (path: string) =>
     pathname === path
       ? "text-blue-600 font-semibold"
@@ -39,7 +32,7 @@ export function Header() {
 
   return (
     <Box pb={12}>
-      <header className="bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700">
+      <header className="bg-[#008577] text-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700">
         <Group justify="space-between" h="100%" className="px-6 md:px-36 py-4">
           {/* Logo */}
           <Box className="flex items-center space-x-2 select-none">
@@ -47,16 +40,14 @@ export function Header() {
               <Image
                 src="/grandlal.png"
                 alt="Grand Lalibela Enterprise Logo"
-                width={80}
-                height={80}
+                width={40}
+                height={40}
                 className="rounded-lg shadow-md"
               />
             </div>
-            {isMounted && (
-              <h1 className="text-2xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-cyan-400 hover:to-blue-600 transition-all duration-500">
+              <h1 className="text-4xl text-white font-black">
                 {"Grand Lalibela Enterprise"}
               </h1>
-            )}
           </Box>
 
           {/* Desktop Navigation */}
@@ -69,9 +60,9 @@ export function Header() {
               href="/"
               className={`px-4 py-2 hover:text-blue-500 ${isActive("/")}`}
             >
-              {t("Homes")}
+              {t("Home")}
             </Link>
-            {["About Us", "Services", "Portfolio", "Contact Us"].map((item) => (
+            {["About", "Services", "Products", "Excellence",  "Contact Us", "News"].map((item) => (
               <Link
                 key={item}
                 href={`/${item.toLowerCase().replace(/\s/g, "-")}`}

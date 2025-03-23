@@ -8,11 +8,11 @@ interface ShellProps {
 
 const Shell: React.FC<ShellProps> = ({ children }) => {
   return (
-    <>
+    <div className="dark:bg-gray-900">
       <Header />
-      <main className="dark:bg-gray-900 mx-40 min-h-screen">{children}</main>
+      <main className="mx-40 min-h-screen">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 };
 

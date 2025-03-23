@@ -13,18 +13,19 @@ export const theme: Partial<MantineThemeOverride> = {
   },
   colors: {
     primary: [
-      '#f6faf3',
-      '#e9f5e3',
-      '#d3eac8',
-      '#afd89d',
-      '#82bd69',
-      '#1D8E3F',
-      '#4c8435',
-      '#1D8E3F',
-      '#345427',
-      '#2b4522',
+      '#e6f2ef',
+      '#cce6e1',
+      '#99ccc4',
+      '#66b3a6',
+      '#339988',
+      '#008577',
+      '#006b5f',
+      '#005247',
+      '#00392f',
+      '#002118'
     ],
   },
+    
   components: {
     Container: {
       defaultProps: {
@@ -84,7 +85,7 @@ export const theme: Partial<MantineThemeOverride> = {
     AppShell: {
       styles: {
         main: {
-          backgroundColor: '#F3F4F6',
+          backgroundColor: '#008577'
         },
         header: {
           height: 40,
