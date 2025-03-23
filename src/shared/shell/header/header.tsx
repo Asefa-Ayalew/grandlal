@@ -1,29 +1,29 @@
 "use client";
-import { useState, useEffect } from "react";
-import { IconHexagonLetterS } from "@tabler/icons-react";
+import { useState } from "react";
 import {
   Box,
-  Burger,
+  Group,
+  Menu,
   Button,
   Drawer,
-  Group,
   Select,
-  useMantineTheme,
+  Burger,
+  Title,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import DarkModeToggle from "../../../utilities/dark-mode-toggle";
 import { useLocale } from "../../../utilities/locale-provider";
 import Image from "next/image";
+import { menuItems } from "@/app/config/menu";
+import DarkModeToggle from "@/utilities/dark-mode-toggle";
+
 
 export function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-  const theme = useMantineTheme();
   const pathname = usePathname();
-  const { t } = useLocale();
-  const { locale, setLocale } = useLocale(); // Use locale context
+  const { locale, setLocale, t } = useLocale();
 
   const isActive = (path: string) =>
     pathname === path
@@ -40,39 +40,85 @@ export function Header() {
               <Image
                 src="/grandlal.png"
                 alt="Grand Lalibela Enterprise Logo"
-                width={40}
-                height={40}
+                width={32}
+                height={32}
                 className="rounded-lg shadow-md"
               />
             </div>
-              <h1 className="text-4xl text-white font-black">
-                {"Grand Lalibela Enterprise"}
-              </h1>
+            <Title order={1} size="h4" fw={900} className="text-white text-sm">
+              GRAND-LALIBELA ENTERPRISE
+            </Title>
           </Box>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation with Dropdown */}
           <Group
             h="100%"
             gap={0}
             className="hidden md:flex font-semibold text-lg"
           >
-            <Link
-              href="/"
-              className={`px-4 py-2 hover:text-blue-500 ${isActive("/")}`}
-            >
-              {t("Home")}
-            </Link>
-            {["About", "Services", "Products", "Excellence",  "Contact Us", "News"].map((item) => (
-              <Link
-                key={item}
-                href={`/${item.toLowerCase().replace(/\s/g, "-")}`}
-                className={`px-4 py-2 hover:text-blue-500 ${isActive(
-                  `/${item.toLowerCase().replace(/\s/g, "-")}`
-                )}`}
-              >
-                {t(item)}
-              </Link>
-            ))}
+            {menuItems.map((item) =>
+              item.subMenu ? (
+                <Menu
+                  key={item.label}
+                  trigger="hover"
+                  openDelay={100}
+                  closeDelay={100}
+                  position="bottom-start"
+                  offset={24}
+                  shadow="md"
+                >
+                  <Menu.Target>
+                    <Box className="text-white">{t(item.label)}</Box>
+                  </Menu.Target>
+                  <Menu.Dropdown>
+                    {item.subMenu.map((subItem) =>
+                      subItem.subMenu ? (
+                        <Menu
+                          key={subItem.label}
+                          trigger="hover"
+                          openDelay={100}
+                          closeDelay={100}
+                          position="right-start"
+                          offset={0}
+                          shadow="md"
+                        >
+                          <Menu.Target>
+                            <Menu.Item>{t(subItem.label)}</Menu.Item>
+                          </Menu.Target>
+                          <Menu.Dropdown>
+                            {subItem.subMenu.map((nestedItem) => (
+                              <Menu.Item
+                                key={nestedItem.label}
+                                component={Link}
+                                href={nestedItem.url}
+                              >
+                                {t(nestedItem.label)}
+                              </Menu.Item>
+                            ))}
+                          </Menu.Dropdown>
+                        </Menu>
+                      ) : (
+                        <Menu.Item
+                          key={subItem.label}
+                          component={Link}
+                          href={subItem.url}
+                        >
+                          {t(subItem.label)}
+                        </Menu.Item>
+                      )
+                    )}
+                  </Menu.Dropdown>
+                </Menu>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.url}
+                  className={`px-4 py-2 ${isActive(item.url)}`}
+                >
+                  {t(item.label)}
+                </Link>
+              )
+            )}
           </Group>
 
           {/* Right Actions */}
@@ -82,16 +128,14 @@ export function Header() {
                 { value: "en", label: "English" },
                 { value: "am", label: "አማርኛ" },
               ]}
-              value={locale} // Bind to context locale
+              value={locale}
               onChange={(val) => setLocale(val as "en" | "am")}
               classNames={{
                 input: "w-28 bg-white dark:bg-gray-900 dark:text-white",
-                dropdown: "dark:bg-gray-800 dark:text-white",
-                option: "dark:hover:bg-gray-700 dark:hover:text-white",
               }}
             />
             <DarkModeToggle />
-          </Group>
+            </Group>
 
           {/* Mobile Menu Button */}
           <Burger
@@ -111,41 +155,17 @@ export function Header() {
         className="md:hidden"
       >
         <nav className="flex flex-col space-y-4">
-          <Link
-            href="/"
-            className={`text-lg py-2 ${isActive("/")}`}
-            onClick={closeDrawer}
-          >
-            Home
-          </Link>
-          {["About Us", "Services", "Portfolio", "Contact Us"].map((item) => (
+          {menuItems.map((item) => (
             <Link
-              key={item}
-              href={`/${item.toLowerCase().replace(/\s/g, "-")}`}
-              className={`text-lg py-2 ${isActive(
-                `/${item.toLowerCase().replace(/\s/g, "-")}`
-              )}`}
+              key={item.label}
+              href={item.url}
+              className={`text-lg py-2 ${isActive(item.url)}`}
               onClick={closeDrawer}
             >
-              {item}
+              {t(item.label)}
             </Link>
           ))}
         </nav>
-
-        <div className="mt-6 flex flex-col space-y-4">
-          <Select
-            data={[
-              { value: "en", label: "English" },
-              { value: "am", label: "Amharic" },
-            ]}
-            value={locale} // Bind to context locale
-            onChange={(val) => setLocale(val as "en" | "am")}
-            classNames={{
-              input: "w-full bg-white dark:bg-gray-900 dark:text-white",
-            }}
-          />
-          <DarkModeToggle />
-        </div>
       </Drawer>
     </Box>
   );
